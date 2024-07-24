@@ -37,10 +37,10 @@ public class UserTest {
     
     @ParameterizedTest
     @ValueSource(ints = {-1, 102})
-    void givenUserDetailsWithInvalidNumber_whenUserIsCreated_thanDomainExceptionIsThrown() {
+    void givenUserDetailsWithInvalidNumber_whenUserIsCreated_thanDomainExceptionIsThrown(int age) {
         assertThrows(
                 DomainException.class,
-                () -> new User("Nick Bauters", "1234abCD", "nickarchilios.be", 33)
+                () -> new User("Nick Bauters", "1234abCD", "nick@archilios.be", age)
         );
     }
     
