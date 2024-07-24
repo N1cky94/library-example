@@ -59,7 +59,7 @@ public class BookTest {
     }
     
     @Test
-    void givenBookDetailsWithEmptyValues_whenUserIsCreated_thanDomainExceptionIsThrown() {
+    void givenBookDetailsWithEmptyValues_whenMagazineIsCreated_thanDomainExceptionIsThrown() {
         assertThrows(
                 DomainException.class,
                 () -> new Book(" ", " ", " ", 2009)
