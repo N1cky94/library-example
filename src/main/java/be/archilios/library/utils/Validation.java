@@ -2,6 +2,8 @@ package be.archilios.library.utils;
 
 import be.archilios.library.models.DomainException;
 
+import java.time.LocalDate;
+
 public interface Validation {
     static void throwDomainException(String message) {
         throw new DomainException(message);
@@ -29,6 +31,18 @@ public interface Validation {
     
     static void validateAge(int age, String message) {
         if (age < 0 || age > 101) {
+            throwDomainException(message);
+        }
+    }
+    
+    static void validateIsbn(String isbn, String message) {
+        if (!(isbn.length() == 13)) {
+            throwDomainException(message);
+        }
+    }
+    
+    static void validateNonFutureYear(int year, String message) {
+        if (year < 0 || year > LocalDate.now().getYear()) {
             throwDomainException(message);
         }
     }

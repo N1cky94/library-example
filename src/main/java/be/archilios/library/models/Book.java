@@ -2,6 +2,8 @@ package be.archilios.library.models;
 
 import java.util.Objects;
 
+import static be.archilios.library.utils.Validation.*;
+
 public class Book {
     private String title;
     private String author;
@@ -41,18 +43,23 @@ public class Book {
     }
     
     public void setTitle(String title) {
+        validateNonEmptyString(title, "Title is required.");
         this.title = title;
     }
     
     public void setAuthor(String author) {
+        validateNonEmptyString(author, "Author is required.");
         this.author = author;
     }
     
     public void setIsbn(String isbn) {
+        isbn = isbn.replaceAll("-", "");
+        validateIsbn(isbn, "Correct ISBN is required.");
         this.isbn = isbn;
     }
     
     public void setPublicationYear(int publicationYear) {
+        validateNonFutureYear(publicationYear, "Publication cannot be in the future or before 1AD");
         this.publicationYear = publicationYear;
     }
     
