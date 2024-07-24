@@ -12,6 +12,7 @@ These are the stories and features that make version **V0.0.N**.
 2. [Register Book](#story-2-register-book)
 3. [Register Magazine](#story-3-register-magazine)
 4. [Publications](#story-4-publications)
+5. [Register Loans](#story-5-register-loan)
 
 ---
 
@@ -98,17 +99,50 @@ will inherit. This approach promotes code reuse and polymorphism, making the sys
 maintainable and scalable.
 
 #### Acceptance Criteria
-- [ ] The Publication class must define common fields that are shared by both books and magazines, such as title and publicationYear.
-- [ ] Book and Magazine must extend Publication class and use its constructor for initializing common fields.
-- [ ] Specific fields unique to Book (author, ISBN) and Magazine (editor, ISSN) remain in their respective classes.
+- [x] The Publication class must define common fields that are shared by both books and magazines, such as title and publicationYear.
+- [x] Book and Magazine must extend Publication class and use its constructor for initializing common fields.
+- [x] Specific fields unique to Book (author, ISBN) and Magazine (editor, ISSN) remain in their respective classes.
 
 #### Technical Requirements
-- [ ] Create an abstract class Publication.
-- [ ] Publication year is number.
-- [ ] Implement getters and setters for the common fields in the Publication class,  ensuring data validation where applicable.
-- [ ] Modify the Book and Magazine classes to extend Publication, removing any duplicate  fields or methods that are now inherited from Publication.
-- [ ] Ensure that constructors in Book and Magazine call the superclass (Publication) constructor to initialize common fields.
-- [ ] Upon registering a new Book or Magazine, an initial availableCopies is passed to the  constructor.
-- [ ] Note: This refactoring should not alter the external behavior of the Book and  Magazine. Your unit tests must continue to run successfully throughout this process.
+- [x] Create an abstract class Publication.
+- [x] Publication year is number.
+- [x] Implement getters and setters for the common fields in the Publication class,  ensuring data validation where applicable.
+- [x] Modify the Book and Magazine classes to extend Publication, removing any duplicate  fields or methods that are now inherited from Publication.
+- [x] Ensure that constructors in Book and Magazine call the superclass (Publication) constructor to initialize common fields.
+- [x] Upon registering a new Book or Magazine, an initial availableCopies is passed to the  constructor.
+- [x] Note: This refactoring should not alter the external behavior of the Book and  Magazine. Your unit tests must continue to run successfully throughout this process.
+
+---
+
+### Story 5: Register Loan
+
+As a librarian,
+I want to be able to register a loan in the system,
+So that users can borrow multiple publications for a specified period.
+
+#### Acceptance Criteria
+- [ ] A loan must be associated with a user and one or more publications.
+- [ ] A loan must have a start date.
+  - [ ] Error: “Start date is required.”
+- [ ] The start date must be today's date or a date in the past.
+  - [ ] Error: Start date cannot be in the future.
+- [ ] The end date must be after the start date and cannot be in the future.
+  - [ ] Errors: Start date cannot be after end date / End date cannot be in the future.
+- [ ] When registering a loan, the system should update the available copies of each publication by decrementing it by 1.
+- [ ] When returning a publication, the system should update the available copies by incrementing it by 1.
+- [ ] If a publication has no available copies left, an error message should be displayed: “No available copies left for publication”.
+- [ ] If any of the publications has no copies left when registering the loan, an error should be given and the available copies of all other publications remain unchanged.
+  - [ ] Error: “Unable to lend publication. No copies available for <title>.”
+- [ ] Failure to meet validation criteria results in an error message for each invalid field. 
+
+#### Technical Requirements
+- [ ] Publication must have all fields and methods to manage the available copies: 
+  - [ ] availableCopies, lendPublication() and returnPublication()
+- [ ] Create a Loan class with fields for a User, a list of Publications, a startDate, an endDate, a setPublications method and a returnPublications method.
+  - [ ] setPublications calls the lendPublication function on each publication, you will need to implement extra logic to meet criteria 8.
+  - [ ] returnPublications call the returnPublication on each publication.
+- [ ] The constructor of Publication must receive an initial amount of available copies.
+- [ ] Use the java.time.LocalDate class for handling dates: https://www.baeldung.com/java-8-date-time-intro
+- [ ] Write unit tests covering both the happy and unhappy paths for loan registration. Do not forget to test behavior in Book (available copies) when registering a loan.
 
 ---
