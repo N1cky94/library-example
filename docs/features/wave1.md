@@ -8,6 +8,7 @@
 
 1. [Register User](#story-1-register-user)
 2. [Register Book](#story-2-register-book)
+3. [Register Magazine](#story-3-register-magazine)
 
 ---
 
@@ -46,20 +47,41 @@ I want to be able to register a book in the system,
 So that it becomes available for readers.
 
 #### Acceptance Criteria
-- [ ] A book must have a title, author, ISBN, and publication year.
-- [ ] The title, author and ISBN should not be empty (null or only spaces).
+- [x] A book must have a title, author, ISBN, and publication year.
+- [x] The title, author and ISBN should not be empty (null or only spaces).
+  - [x] An error “... is required.” should be given otherwise. 
+- [x] The publication year must be a positive number.
+  - [x] An error “Publication year must be a positive integer.” should be given otherwise.
+- [x] The publication year cannot be in the future.
+  - [x] An error “Publication year cannot be in the future.” should be given
+  otherwise.
+
+#### Technical Requirements
+- [x] Create a Book class with the specified fields.
+- [x] Implement validation within the setters or the constructor of the class.
+  - [x] An ISBN is a String that contains 13 digits. Example: 978-0-545-01022-1 
+  - [x] For publication year validation, have a look at the java Year class (and its now() method): https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Year.html
+- [x] Write unit tests covering both the happy and unhappy cases.
+
+---
+
+### Story 3: Register Magazine
+As a librarian,
+I want to be able to register a magazine in the system, 
+So that it becomes available for readers.
+
+#### Acceptance Criteria
+- [ ] A magazine must have a title, editor, ISSN (not ISBN!), and publication year.
+- [ ] The title, editor and ISSN should not be empty.
   - [ ] An error “... is required.” should be given otherwise. 
 - [ ] The publication year must be a positive number.
   - [ ] An error “Publication year must be a positive integer.” should be given otherwise.
 - [ ] The publication year cannot be in the future.
-  - [ ] An error “Publication year cannot be in the future.” should be given
-  otherwise.
+  - [ ] An error “Publication year cannot be in the future.” should be given otherwise.
 
 #### Technical Requirements
-- [ ] Create a Book class with the specified fields.
+- [ ] Create a Magazine class with the specified fields.
 - [ ] Implement validation within the setters or the constructor of the class.
-  - [ ] An ISBN is a String that contains 13 digits. Example: 978-0-545-01022-1 
-  - [ ] For publication year validation, have a look at the java Year class (and its now() method): https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Year.html
 - [ ] Write unit tests covering both the happy and unhappy cases.
 
 ---
