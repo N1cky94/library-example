@@ -41,6 +41,12 @@ public interface Validation {
         }
     }
     
+    static void validateIssn(String issn, String message) {
+        if (!(issn.length() == 8)) {
+            throwDomainException(message);
+        }
+    }
+    
     static void validateNonFutureYear(int year, String message) {
         if (year < 0 || year > LocalDate.now().getYear()) {
             throwDomainException(message);
