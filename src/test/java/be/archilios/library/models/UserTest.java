@@ -27,11 +27,12 @@ public class UserTest {
         );
     }
     
-    @Test
-    void givenUserDetailsWithInvalidEmail_whenUserIsCreated_thanDomainExceptionIsThrown() {
+    @ParameterizedTest
+    @ValueSource(strings = {"nickarchilios.be", "nick@archiliosbe"})
+    void givenUserDetailsWithInvalidEmail_whenUserIsCreated_thanDomainExceptionIsThrown(String password) {
         assertThrows(
                 DomainException.class,
-                () -> new User("Nick Bauters", "1234abCD", "nickarchilios.be", 33)
+                () -> new User("Nick Bauters", "1234abCD", password, 33)
         );
     }
     
