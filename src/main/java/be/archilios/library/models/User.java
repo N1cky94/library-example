@@ -2,6 +2,8 @@ package be.archilios.library.models;
 
 import java.util.Objects;
 
+import static be.archilios.library.utils.Validation.*;
+
 public class User {
     private String name;
     private String password;
@@ -9,10 +11,19 @@ public class User {
     private int age;
     
     public User(String name, String password, String email, int age) {
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.age = age;
+        setName(name);
+        setPassword(password);
+        setEmail(email);
+        setAge(age);
+    }
+    
+    public User(User user) {
+        this(
+                user.getName(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getAge()
+        );
     }
     
     public String getName() {
@@ -20,6 +31,7 @@ public class User {
     }
     
     public void setName(String name) {
+        validateNonEmptyString(name, "Name is required");
         this.name = name;
     }
     
@@ -28,6 +40,7 @@ public class User {
     }
     
     public void setPassword(String password) {
+        validatePassword(password, "Password must be at least 8 characters long");
         this.password = password;
     }
     
@@ -36,6 +49,7 @@ public class User {
     }
     
     public void setEmail(String email) {
+        validateEmail(email, "E-mail must be a valid email format");
         this.email = email;
     }
     
@@ -44,6 +58,7 @@ public class User {
     }
     
     public void setAge(int age) {
+        validateAge(age, "Age must be a positive integer between 0 and 101");
         this.age = age;
     }
     
