@@ -6,9 +6,12 @@
 
 ## Content
 
+These are the stories and features that make version **V0.0.N**.
+
 1. [Register User](#story-1-register-user)
 2. [Register Book](#story-2-register-book)
 3. [Register Magazine](#story-3-register-magazine)
+4. [Publications](#story-4-publications)
 
 ---
 
@@ -71,17 +74,41 @@ I want to be able to register a magazine in the system,
 So that it becomes available for readers.
 
 #### Acceptance Criteria
-- [ ] A magazine must have a title, editor, ISSN (not ISBN!), and publication year.
-- [ ] The title, editor and ISSN should not be empty.
-  - [ ] An error “... is required.” should be given otherwise. 
-- [ ] The publication year must be a positive number.
-  - [ ] An error “Publication year must be a positive integer.” should be given otherwise.
-- [ ] The publication year cannot be in the future.
-  - [ ] An error “Publication year cannot be in the future.” should be given otherwise.
+- [x] A magazine must have a title, editor, ISSN (not ISBN!), and publication year.
+- [x] The title, editor and ISSN should not be empty.
+  - [x] An error “... is required.” should be given otherwise. 
+- [x] The publication year must be a positive number.
+  - [x] An error “Publication year must be a positive integer.” should be given otherwise.
+- [x] The publication year cannot be in the future.
+  - [x] An error “Publication year cannot be in the future.” should be given otherwise.
 
 #### Technical Requirements
-- [ ] Create a Magazine class with the specified fields.
-- [ ] Implement validation within the setters or the constructor of the class.
-- [ ] Write unit tests covering both the happy and unhappy cases.
+- [x] Create a Magazine class with the specified fields.
+- [x] Implement validation within the setters or the constructor of the class.
+- [x] Write unit tests covering both the happy and unhappy cases.
+
+---
+
+### Story 4: Publications
+
+To streamline the management of different types of publications within the library system, 
+we need to ensure that both Book and Magazine entities share common attributes and behaviors. 
+This story aims to introduce a base class named Publication from which both Book and Magazine 
+will inherit. This approach promotes code reuse and polymorphism, making the system more 
+maintainable and scalable.
+
+#### Acceptance Criteria
+- [ ] The Publication class must define common fields that are shared by both books and magazines, such as title and publicationYear.
+- [ ] Book and Magazine must extend Publication class and use its constructor for initializing common fields.
+- [ ] Specific fields unique to Book (author, ISBN) and Magazine (editor, ISSN) remain in their respective classes.
+
+#### Technical Requirements
+- [ ] Create an abstract class Publication.
+- [ ] Publication year is number.
+- [ ] Implement getters and setters for the common fields in the Publication class,  ensuring data validation where applicable.
+- [ ] Modify the Book and Magazine classes to extend Publication, removing any duplicate  fields or methods that are now inherited from Publication.
+- [ ] Ensure that constructors in Book and Magazine call the superclass (Publication) constructor to initialize common fields.
+- [ ] Upon registering a new Book or Magazine, an initial availableCopies is passed to the  constructor.
+- [ ] Note: This refactoring should not alter the external behavior of the Book and  Magazine. Your unit tests must continue to run successfully throughout this process.
 
 ---
