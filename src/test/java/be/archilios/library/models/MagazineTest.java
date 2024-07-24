@@ -17,6 +17,15 @@ public class MagazineTest {
         assertEquals("Baeldung", magazine.getEditor(), "Editor should be set properly");
         assertEquals("12345678", magazine.getIssn(), "ISSN should be set properly");
         assertEquals(2012, magazine.getPublicationYear(), "Publication year should be set properly");
+        assertEquals(Magazine.STANDARD_AVAILABLE_COPIES, magazine.getAvailableCopies(), "Available copies are set automatically");
+    }
+    
+    @Test
+    void givenBookDetailsWithAvailableCopies_whenBookIsCreated_thanBookIsCorrectlyStoredInMemory() {
+        Book book = new Book("How to start using Spring Boot", "Baeldung", "12345678", 2012, 10);
+        
+        assertNotNull(book);
+        assertEquals(10, magazine.getAvailableCopies(), "Available copies should be set");
     }
     
     @Test

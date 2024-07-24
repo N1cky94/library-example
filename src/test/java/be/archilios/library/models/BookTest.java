@@ -20,6 +20,15 @@ public class BookTest {
         assertEquals("Robert C. Martin", book.getAuthor(), "Author should be set properly");
         assertEquals("9780132350884", book.getIsbn(), "ISBN should be set properly");
         assertEquals(2009, book.getPublicationYear(), "Publication year should be set properly");
+        assertEquals(Book.STANDARD_AVAILABLE_COPIES, book.getAvailableCopies(), "Available copies are set automatically");
+    }
+    
+    @Test
+    void givenBookDetailsWithAvailableCopies_whenBookIsCreated_thanBookIsCorrectlyStoredInMemory() {
+        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009, 10);
+        
+        assertNotNull(book);
+        assertEquals(10, book.getAvailableCopies(), "Available copies should be set");
     }
     
     @Test
