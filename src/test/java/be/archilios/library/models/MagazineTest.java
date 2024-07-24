@@ -22,9 +22,9 @@ public class MagazineTest {
     
     @Test
     void givenBookDetailsWithAvailableCopies_whenBookIsCreated_thanBookIsCorrectlyStoredInMemory() {
-        Book book = new Book("How to start using Spring Boot", "Baeldung", "12345678", 2012, 10);
+        Magazine magazine = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012, 10);
         
-        assertNotNull(book);
+        assertNotNull(magazine);
         assertEquals(10, magazine.getAvailableCopies(), "Available copies should be set");
     }
     
