@@ -35,6 +35,12 @@ public interface Validation {
         }
     }
     
+    static void validateNonNegativeNumber(int number, String message) {
+        if (number < 0) {
+            throwDomainException(message);
+        }
+    }
+    
     static void validateIsbn(String isbn, String message) {
         if (!(isbn.length() == 13)) {
             throwDomainException(message);

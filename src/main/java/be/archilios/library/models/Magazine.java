@@ -4,21 +4,26 @@ import java.util.Objects;
 
 import static be.archilios.library.utils.Validation.*;
 
-public class Magazine {
-    private String title;
+public class Magazine extends Publication {
+    public static final int STANDARD_AVAILABLE_COPIES = 12;
+    
     private String editor;
     private String issn;
-    private int publicationYear;
     
     public Magazine(String title, String editor, String issn, int publicationYear) {
-        this.setTitle(title);
-        this.setEditor(editor);
-        this.setIssn(issn);
-        this.setPublicationYear(publicationYear);
+        this(
+                title,
+                editor,
+                issn,
+                publicationYear,
+                STANDARD_AVAILABLE_COPIES
+        );
     }
     
-    public String getTitle() {
-        return title;
+    public Magazine(String title, String editor, String issn, int publicationYear, int availableCopies) {
+        super(title, publicationYear, availableCopies);
+        this.setEditor(editor);
+        this.setIssn(issn);
     }
     
     public String getEditor() {
@@ -27,15 +32,6 @@ public class Magazine {
     
     public String getIssn() {
         return issn;
-    }
-    
-    public int getPublicationYear() {
-        return publicationYear;
-    }
-    
-    public void setTitle(String title) {
-        validateNonEmptyString(title, "Title is required.");
-        this.title = title;
     }
     
     public void setEditor(String editor) {
@@ -49,36 +45,30 @@ public class Magazine {
         this.issn = issn;
     }
     
-    public void setPublicationYear(int publicationYear) {
-        validateNonFutureYear(publicationYear, "Publication year cannot be in the future or before 1AD");
-        this.publicationYear = publicationYear;
-    }
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         
         Magazine magazine = (Magazine) o;
-        return getPublicationYear() == magazine.getPublicationYear() && Objects.equals(getTitle(), magazine.getTitle()) && Objects.equals(getEditor(), magazine.getEditor()) && Objects.equals(getIssn(), magazine.getIssn());
+        return Objects.equals(getEditor(), magazine.getEditor()) && Objects.equals(getIssn(), magazine.getIssn());
     }
     
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(getTitle());
+        int result = super.hashCode();
         result = 31 * result + Objects.hashCode(getEditor());
         result = 31 * result + Objects.hashCode(getIssn());
-        result = 31 * result + getPublicationYear();
         return result;
     }
     
     @Override
     public String toString() {
         return "Magazine{" +
-                "title='" + title + '\'' +
-                ", editor='" + editor + '\'' +
+                "editor='" + editor + '\'' +
                 ", issn='" + issn + '\'' +
-                ", publicationYear=" + publicationYear +
+                ", publication='" + super.toString() + '\'' +
                 '}';
     }
 }
