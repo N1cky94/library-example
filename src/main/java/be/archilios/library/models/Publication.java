@@ -43,11 +43,18 @@ public class Publication {
     }
     
     public void lendPublication() {
+        hasAvailableCopies();
+        this.availableCopies--;
+    }
     
+    protected void hasAvailableCopies() {
+        if (availableCopies <= 0) {
+            throw new DomainException("No available copies left for publication");
+        }
     }
     
     public void returnPublication() {
-    
+        availableCopies++;
     }
     
     @Override
