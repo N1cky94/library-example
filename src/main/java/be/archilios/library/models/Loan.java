@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import static be.archilios.library.utils.Validation.*;
+
 public class Loan {
     private User user;
     private List<Publication> publications;
@@ -12,7 +14,10 @@ public class Loan {
     private boolean processed = false;
     
     public Loan(User user, List<Publication> publications, LocalDate startDate, LocalDate endDate) {
-    
+        setUser(user);
+        setPublications(publications);
+        setStartDate(startDate);
+        setEndDate(endDate);
     }
     
     public User getUser() {
@@ -20,6 +25,7 @@ public class Loan {
     }
     
     public void setUser(User user) {
+        validateExists(user, "User is required.");
         this.user = user;
     }
     
@@ -28,6 +34,7 @@ public class Loan {
     }
     
     private void setPublications(List<Publication> publications) {
+        validateListExistsAndHoldsExistingData(publications, "Publication list and holding publications are required");
         this.publications = publications;
     }
     
@@ -36,6 +43,8 @@ public class Loan {
     }
     
     public void setStartDate(LocalDate startDate) {
+        validateExists(startDate, "Start day should be properly set");
+        validateNonFutureDate(startDate, "Start Date should be today or before today");
         this.startDate = startDate;
     }
     
@@ -44,6 +53,9 @@ public class Loan {
     }
     
     public void setEndDate(LocalDate endDate) {
+        validateExists(getStartDate(), "Start date should be set before setting end date");
+        validateExists(endDate, "End date should be properly set");
+        validateDateIsNotBefore(endDate, getStartDate(), "End Date should not be before Start Date");
         this.endDate = endDate;
     }
     
@@ -52,7 +64,7 @@ public class Loan {
     }
     
     private void setProcessed(boolean processed) {
-        this.processed = processed;
+        this.processed = true;
     }
     
     public void returnPublications() {
