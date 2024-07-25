@@ -115,8 +115,8 @@ public class LoanTest {
         
         Loan loan = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
         
-        assertEquals(Book.STANDARD_AVAILABLE_COPIES - 1, loan.getPublications().get(0), "Book publication should have one less copy");
-        assertEquals(Magazine.STANDARD_AVAILABLE_COPIES - 1, loan.getPublications().get(1), "Magazine publication should have one less copy");
+        assertEquals(Book.STANDARD_AVAILABLE_COPIES - 1, loan.getPublications().get(0).getAvailableCopies(), "Book publication should have one less copy");
+        assertEquals(Magazine.STANDARD_AVAILABLE_COPIES - 1, loan.getPublications().get(1).getAvailableCopies(), "Magazine publication should have one less copy");
         assertTrue(loan.isProcessed(), "Loan has been processed");
     }
     
@@ -130,8 +130,8 @@ public class LoanTest {
         Loan loan = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
         loan.returnPublications();
         
-        assertEquals(Book.STANDARD_AVAILABLE_COPIES, loan.getPublications().get(0), "Book publication should have one extra available copie");
-        assertEquals(Magazine.STANDARD_AVAILABLE_COPIES, loan.getPublications().get(1), "Magazine publication should have one extra available copie");
+        assertEquals(Book.STANDARD_AVAILABLE_COPIES, loan.getPublications().get(0).getAvailableCopies(), "Book publication should have one extra available copie");
+        assertEquals(Magazine.STANDARD_AVAILABLE_COPIES, loan.getPublications().get(1).getAvailableCopies(), "Magazine publication should have one extra available copie");
     }
     
     @Test
