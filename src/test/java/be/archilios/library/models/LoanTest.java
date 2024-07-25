@@ -117,7 +117,7 @@ public class LoanTest {
         
         assertEquals(Book.STANDARD_AVAILABLE_COPIES - 1, loan.getPublications().get(0), "Book publication should have one less copy");
         assertEquals(Magazine.STANDARD_AVAILABLE_COPIES - 1, loan.getPublications().get(1), "Magazine publication should have one less copy");
-        
+        assertTrue(loan.isProcessed(), "Loan has been processed");
     }
     
     @Test
