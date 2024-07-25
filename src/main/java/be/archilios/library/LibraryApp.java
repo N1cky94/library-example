@@ -1,7 +1,11 @@
 package be.archilios.library;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class LibraryApp {
     public static void main(String[] args) {
-        System.out.println("System booted correctly");
+        SpringApplication.run(LibraryApp.class, args);
     }
 }
