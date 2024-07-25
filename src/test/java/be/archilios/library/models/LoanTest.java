@@ -1,6 +1,8 @@
 package be.archilios.library.models;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -61,6 +63,33 @@ public class LoanTest {
         assertThrows(
                 DomainException.class,
                 () -> new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15))
+        );
+    }
+    
+    @Test
+    void givenValidStartDate_whenLoanIsCreated_thanStoreLoanInMemory() {
+        User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        List<Publication> publications = new ArrayList<>();
+        publications.add(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        publications.add(new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012));
+        
+        Loan loanOfToday = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        Loan loanOfYesterday = new Loan(user, publications, LocalDate.now().minusDays(1), LocalDate.now().plusDays(14));
+        
+        assertEquals(LocalDate.now(), loanOfToday.getStartDate(), "Start day should be able to be today");
+        assertEquals(LocalDate.now().minusDays(1), loanOfYesterday.getStartDate(), "Start day should be able to be in the past");
+    }
+    
+    @Test
+    void givenInvalidStartDate_whenLoanIsCreated_thanDomainExceptionIsThrown() {
+        User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        List<Publication> publications = new ArrayList<>();
+        publications.add(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        publications.add(new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012));
+        
+        assertThrows(
+                DomainException.class,
+                () -> new Loan(user, publications, LocalDate.now().plusDays(1), LocalDate.now().plusDays(25))
         );
     }
     
