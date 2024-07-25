@@ -3,6 +3,7 @@ package be.archilios.library.utils;
 import be.archilios.library.models.DomainException;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface Validation {
     static void throwDomainException(String message) {
@@ -55,6 +56,40 @@ public interface Validation {
     
     static void validateNonFutureYear(int year, String message) {
         if (year < 0 || year > LocalDate.now().getYear()) {
+            throwDomainException(message);
+        }
+    }
+    
+    static void validateNonFutureDate(LocalDate date, String message) {
+        validateDateIsNotAfter(date, LocalDate.now(), message);
+    }
+    
+    static void validateDateIsNotBefore(LocalDate dateToCheck, LocalDate notBeforeDate, String message) {
+        if (dateToCheck.isBefore(notBeforeDate)) {
+            throwDomainException(message);
+        }
+    }
+    
+    static void validateDateIsNotAfter(LocalDate dateToCheck, LocalDate notAfterDate, String message) {
+        if (dateToCheck.isAfter(notAfterDate)) {
+            throwDomainException(message);
+        }
+    }
+    
+    static void validateExists(Object o, String message) {
+        if (o == null) {
+            throwDomainException(message);
+        }
+    }
+    
+    static <T> void validateListExistsAndHoldsExistingData(List<T> objects, String message) {
+        validateExists(objects, message);
+        validateNonEmptyList(objects, message);
+        objects.forEach(o -> validateExists(o, message));
+    }
+    
+    static <T> void validateNonEmptyList(List<T> list, String message) {
+        if (list.isEmpty()) {
             throwDomainException(message);
         }
     }
