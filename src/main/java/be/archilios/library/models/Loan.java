@@ -18,8 +18,6 @@ public class Loan {
         setPublications(publications);
         setStartDate(startDate);
         setEndDate(endDate);
-        
-        lendPublications();
     }
     
     public User getUser() {
@@ -38,6 +36,7 @@ public class Loan {
     private void setPublications(List<Publication> publications) {
         validateListExistsAndHoldsExistingData(publications, "Publication list and holding publications are required");
         this.publications = publications;
+        lendPublications();
     }
     
     public LocalDate getStartDate() {
