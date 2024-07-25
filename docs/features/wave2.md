@@ -9,13 +9,26 @@
 These are the stories and features that make version **V0.1.N**.
 We are now introducing the web-API
 
-1. [Retrieve all users over web-API](#story-6-retrieve-all-users)
+1. [Spring Boot](#framework-upgrade-implement-spring-boot-and-web)
+2. [Retrieve all users over web-API](#story-6-retrieve-all-users)
 
 
 ---
 
 ---
 ## Features / Stories
+
+### Framework upgrade: Implement Spring Boot and Web
+
+We are going to start using Spring with some dependencies.
+
+#### Acceptance Criteria
+- [ ] Add Spring Boot 3 dependencies
+  - [ ] Actuator
+  - [ ] Web
+  - [ ] Devtools
+  - [ ] test
+- [ ] Configure Spring in the application
 
 ### Story 6: Retrieve all users
 
