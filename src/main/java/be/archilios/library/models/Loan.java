@@ -18,6 +18,8 @@ public class Loan {
         setPublications(publications);
         setStartDate(startDate);
         setEndDate(endDate);
+        
+        lendPublications();
     }
     
     public User getUser() {
@@ -63,8 +65,19 @@ public class Loan {
         return processed;
     }
     
-    private void setProcessed(boolean processed) {
+    private void setProcessed() {
         this.processed = true;
+    }
+    
+    private void lendPublications() {
+        if (isProcessed()) {
+            return ;
+        }
+        
+        publications.forEach(Publication::hasAvailableCopies);
+        publications.forEach(Publication::lendPublication);
+        
+        setProcessed();
     }
     
     public void returnPublications() {
