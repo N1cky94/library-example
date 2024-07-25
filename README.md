@@ -45,7 +45,11 @@ a push or with a **Pull Request** (Merge request on other platforms).
 
 ## Running the Application
 
-Running the application is done by running the tests.
+### Tests
+While making changes, run ALL tests often.
+
+To Test the web-API, we are using Postman and the webclient.
+These files are kept in [test > resources > requests](src/test/resources/requests)
 
 ## Features
 
