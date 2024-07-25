@@ -42,6 +42,14 @@ public class Publication {
         this.availableCopies = availableCopies;
     }
     
+    public void lendPublication() {
+    
+    }
+    
+    public void returnPublication() {
+    
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
