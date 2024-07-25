@@ -1,8 +1,6 @@
 package be.archilios.library.models;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -124,8 +122,8 @@ public class LoanTest {
     void givenValidLoan_whenPublicationsAreReturned_thanAvailableCopiesOfAllPublicationsIncreaseByOne() {
         User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
         List<Publication> publications = new ArrayList<>();
-        publications.add(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009, Book.STANDARD_AVAILABLE_COPIES - 1));
-        publications.add(new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012, Magazine.STANDARD_AVAILABLE_COPIES - 1));
+        publications.add(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009, Book.STANDARD_AVAILABLE_COPIES));
+        publications.add(new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012, Magazine.STANDARD_AVAILABLE_COPIES));
         
         Loan loan = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
         loan.returnPublications();
