@@ -26,7 +26,7 @@ public class LoanTest {
         assertEquals(publications, loan.getPublications(), "List of publications should be set properly");
         assertEquals(LocalDate.now(), loan.getStartDate(), "Start date should be today");
         assertEquals(LocalDate.now().plusDays(15), loan.getEndDate(), "End date should be 15 days from now");
-        assertFalse(loan.isProcessed(), "Loan should not be processed yet");
+        assertTrue(loan.isProcessed(), "Loan should be processed");
     }
     
     @Test
