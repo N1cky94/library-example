@@ -23,12 +23,12 @@ We are now introducing the web-API
 We are going to start using Spring with some dependencies.
 
 #### Acceptance Criteria
-- [ ] Add Spring Boot 3 dependencies
-  - [ ] Actuator
-  - [ ] Web
-  - [ ] Devtools
-  - [ ] test
-- [ ] Configure Spring in the application
+- [x] Add Spring Boot 3 dependencies
+  - [x] Actuator
+  - [x] Web
+  - [x] Devtools
+  - [x] test
+- [x] Configure Spring in the application
 
 ### Story 6: Retrieve all users
 
