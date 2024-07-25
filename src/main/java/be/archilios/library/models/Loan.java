@@ -81,7 +81,7 @@ public class Loan {
     }
     
     public void returnPublications() {
-    
+        publications.forEach(Publication::returnPublication);
     }
     
     @Override
