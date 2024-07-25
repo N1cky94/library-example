@@ -68,10 +68,40 @@ public class BookTest {
     }
     
     @Test
-    void givenBookDetailsWithEmptyValues_whenMagazineIsCreated_thanDomainExceptionIsThrown() {
+    void givenBookDetailsWithEmptyValues_whenBookIsCreated_thanDomainExceptionIsThrown() {
         assertThrows(
                 DomainException.class,
                 () -> new Book(" ", " ", " ", 2009)
         );
+    }
+    
+    @Test
+    void givenBookWithOneAvailableCopy_whenBookIsLendOut_thanAvailableCopiesShouldReduceToZero() {
+        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009, 1);
+        
+        book.lendPublication();
+        
+        assertEquals(0, book.getAvailableCopies(), "Available copies should be zero");
+    }
+    
+    @Test
+    void givenBookWithNoAvailableCopy_whenBookIsLendOut_thanDomainExceptionIsThrown() {
+        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009, 0);
+        
+        assertThrows(
+                DomainException.class,
+                () -> book.lendPublication()
+        );
+        
+        assertEquals(0, book.getAvailableCopies(), "Available copies should not have changed");
+    }
+    
+    @Test
+    void whenBookIsReturned_thanAvailableCopiesShouldIncrementByOne() {
+        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009, 0);
+        
+        book.returnPublication();
+        
+        assertEquals(1, book.getAvailableCopies(), "Available copies should increment to one");
     }
 }

@@ -71,4 +71,34 @@ public class MagazineTest {
                 () -> new Magazine(" ", " ", " ", 2012)
         );
     }
+    
+    @Test
+    void givenMagazineWithOneAvailableCopy_whenMagazineIsLendOut_thanAvailableCopiesShouldReduceToZero() {
+        Magazine magazine = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012, 1);
+        
+        magazine.lendPublication();
+        
+        assertEquals(0, magazine.getAvailableCopies(), "Available copies should be zero");
+    }
+    
+    @Test
+    void givenMagazineWithNoAvailableCopy_whenMagazineIsLendOut_thanDomainExceptionIsThrown() {
+        Magazine magazine = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012, 0);
+        
+        assertThrows(
+                DomainException.class,
+                () -> magazine.lendPublication()
+        );
+        
+        assertEquals(0, magazine.getAvailableCopies(), "Available copies should not have changed");
+    }
+    
+    @Test
+    void whenMagazineIsReturned_thanAvailableCopiesShouldIncrementByOne() {
+        Magazine magazine = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012, 0);
+        
+        magazine.returnPublication();
+        
+        assertEquals(1, magazine.getAvailableCopies(), "Available copies should increment to one");
+    }
 }
