@@ -126,8 +126,8 @@ So that users can borrow multiple publications for a specified period.
   - [ ] Error: “Start date is required.”
 - [ ] The start date must be today's date or a date in the past.
   - [ ] Error: Start date cannot be in the future.
-- [ ] The end date must be after the start date and cannot be in the future.
-  - [ ] Errors: Start date cannot be after end date / End date cannot be in the future.
+- [ ] The end date must be after the start date.
+  - [ ] Errors: EndDate cannot be before StartDate.
 - [ ] When registering a loan, the system should update the available copies of each publication by decrementing it by 1.
 - [ ] When returning a publication, the system should update the available copies by incrementing it by 1.
 - [ ] If a publication has no available copies left, an error message should be displayed: “No available copies left for publication”.
