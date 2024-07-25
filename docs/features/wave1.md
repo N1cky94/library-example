@@ -121,28 +121,28 @@ I want to be able to register a loan in the system,
 So that users can borrow multiple publications for a specified period.
 
 #### Acceptance Criteria
-- [ ] A loan must be associated with a user and one or more publications.
-- [ ] A loan must have a start date.
-  - [ ] Error: “Start date is required.”
-- [ ] The start date must be today's date or a date in the past.
-  - [ ] Error: Start date cannot be in the future.
-- [ ] The end date must be after the start date.
-  - [ ] Errors: EndDate cannot be before StartDate.
-- [ ] When registering a loan, the system should update the available copies of each publication by decrementing it by 1.
-- [ ] When returning a publication, the system should update the available copies by incrementing it by 1.
-- [ ] If a publication has no available copies left, an error message should be displayed: “No available copies left for publication”.
-- [ ] If any of the publications has no copies left when registering the loan, an error should be given and the available copies of all other publications remain unchanged.
-  - [ ] Error: “Unable to lend publication. No copies available for <title>.”
-- [ ] Failure to meet validation criteria results in an error message for each invalid field. 
+- [x] A loan must be associated with a user and one or more publications.
+- [x] A loan must have a start date.
+  - [x] Error: “Start date is required.”
+- [x] The start date must be today's date or a date in the past.
+  - [x] Error: Start date cannot be in the future.
+- [x] The end date must be after the start date.
+  - [x] Errors: EndDate cannot be before StartDate.
+- [x] When registering a loan, the system should update the available copies of each publication by decrementing it by 1.
+- [x] When returning a publication, the system should update the available copies by incrementing it by 1.
+- [x] If a publication has no available copies left, an error message should be displayed: “No available copies left for publication”.
+- [x] If any of the publications has no copies left when registering the loan, an error should be given and the available copies of all other publications remain unchanged.
+  - [x] Error: “Unable to lend publication. No copies available for `<title>`.”
+- [x] Failure to meet validation criteria results in an error message for each invalid field. 
 
 #### Technical Requirements
-- [ ] Publication must have all fields and methods to manage the available copies: 
-  - [ ] availableCopies, lendPublication() and returnPublication()
-- [ ] Create a Loan class with fields for a User, a list of Publications, a startDate, an endDate, a setPublications method and a returnPublications method.
-  - [ ] setPublications calls the lendPublication function on each publication, you will need to implement extra logic to meet criteria 8.
-  - [ ] returnPublications call the returnPublication on each publication.
-- [ ] The constructor of Publication must receive an initial amount of available copies.
-- [ ] Use the java.time.LocalDate class for handling dates: https://www.baeldung.com/java-8-date-time-intro
-- [ ] Write unit tests covering both the happy and unhappy paths for loan registration. Do not forget to test behavior in Book (available copies) when registering a loan.
+- [x] Publication must have all fields and methods to manage the available copies: 
+  - [x] availableCopies, lendPublication() and returnPublication()
+- [x] Create a Loan class with fields for a User, a list of Publications, a startDate, an endDate, a setPublications method and a returnPublications method.
+  - [x] setPublications calls the lendPublication function on each publication, you will need to implement extra logic to meet criteria 8.
+  - [x] returnPublications call the returnPublication on each publication.
+- [x] The constructor of Publication must receive an initial amount of available copies.
+- [x] Use the java.time.LocalDate class for handling dates: https://www.baeldung.com/java-8-date-time-intro
+- [x] Write unit tests covering both the happy and unhappy paths for loan registration. Do not forget to test behavior in Book (available copies) when registering a loan.
 
 ---
