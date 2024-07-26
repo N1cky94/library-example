@@ -5,8 +5,6 @@ import be.archilios.library.models.User;
 import be.archilios.library.repositories.InMemoryUserRepository;
 import be.archilios.library.services.UserService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
