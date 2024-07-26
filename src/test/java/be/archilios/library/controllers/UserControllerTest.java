@@ -150,4 +150,27 @@ public class UserControllerTest {
                 .andExpect(status().is4xxClientError())
                 .andExpect(content().json(read("users/400_age_out_of_bound")));
     }
+    
+    @Test
+    void givenPartialName_whenApiCallForUsersIsMadeWithName_thanReturnAllUsersContainingThatName() throws Exception {
+        when(repository.findAllUsersByName(any())).thenReturn(
+                Arrays.asList(
+                        new User(1L, "Nick Bauters", "1234abCD9", "nick@archilios.be", 33),
+                        new User(2L, "Fynn Bauters", "1234abCV9", "fynn@archilios.be", 2)
+                )
+        );
+        
+        mockMvc.perform(get("/users?name=Bauters").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(read("users/200_get_all_name_containing")));
+    }
+    
+    @Test
+    void givenPartialNameNotInUserList_whenApiCallDorUsersIsMadeWithName_thanReturn404UserNotFound() throws Exception {
+        when(repository.findAllUsersByName(any())).thenReturn(List.of());
+        
+        mockMvc.perform(get("/users?name=Nope").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError())
+                .andExpect(content().json(read("users/404_user_not_found")));
+    }
 }

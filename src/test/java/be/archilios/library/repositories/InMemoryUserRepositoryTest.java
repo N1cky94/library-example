@@ -57,4 +57,13 @@ public class InMemoryUserRepositoryTest {
         assertEquals("Fynn Bauters", users.get(0).getName());
         assertEquals("Kelly de Lange", users.get(1).getName());
     }
+    
+    @Test
+    void findAllUserByName_returnAllUsersWhereNameContainsParameterInDataStore() {
+        InMemoryUserRepository repository = new InMemoryUserRepository();
+        List<User> users = repository.findAllUsersByName("Bauters");
+        assertEquals(2, users.size());
+        assertEquals("Nick Bauters", users.get(0).getName());
+        assertEquals("Fynn Bauters", users.get(1).getName());
+    }
 }
