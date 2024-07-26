@@ -12,9 +12,10 @@ public class InMemoryUserRepositoryTest {
     void findAllUsers_returnsAllUsersInDataStore() {
         InMemoryUserRepository repository = new InMemoryUserRepository();
         List<User> users = repository.findAllUsers();
-        assertEquals(2, users.size());
+        assertEquals(3, users.size());
         assertEquals("Nick Bauters", users.get(0).getName());
-        assertEquals("Kelly de Lange", users.get(1).getName());
+        assertEquals("Fynn Bauters", users.get(1).getName());
+        assertEquals("Kelly de Lange", users.get(2).getName());
     }
     
     @Test
@@ -37,5 +38,14 @@ public class InMemoryUserRepositoryTest {
     void clear_calledOnEmptyDataStore_doesNotThrowException() {
         InMemoryUserRepository repository = new InMemoryUserRepository();
         assertDoesNotThrow(repository::clear);
+    }
+    
+    @Test
+    void findAllAdults_returnsAllAdultUsersInDataStore() {
+        InMemoryUserRepository repository = new InMemoryUserRepository();
+        List<User> users = repository.findAllUsersOlderThan(18);
+        assertEquals(2, users.size());
+        assertEquals("Nick Bauters", users.get(0).getName());
+        assertEquals("Kelly de Lange", users.get(1).getName());
     }
 }

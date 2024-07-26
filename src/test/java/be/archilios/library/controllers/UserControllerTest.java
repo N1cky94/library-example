@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static be.archilios.library.controllers.JsonTestUtils.read;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -74,5 +76,30 @@ public class UserControllerTest {
         mockMvc.perform(get("/users").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().json(read("500_server_error")));
+    }
+    
+    @Test
+    void givenUserListContainingAdultsAndChildren_whenApiCallFoAdultsIsMade_thanReturnOnlyAdults() throws Exception {
+        when(repository.findAllUsersOlderThan(anyInt())).thenReturn(
+                Arrays.asList(
+                        new User(1l, "Nick Bauters", "1234abCD9", "nick@archilios.be", 33),
+                        new User(3l, "Kelly de Lange", "8765zyXW0", "kelly@archilios.be", 26)
+                )
+        );
+
+        mockMvc.perform(get("/users/adults").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(read("users/200_get_all_adults")));
+    }
+
+    @Test
+    void givenUserListContainingAdultsAndChildrenIsEmpty_whenApiCallForAdultsIsMade_thanReturnOnlyAdults() throws Exception {
+        when(repository.findAllUsersOlderThan(anyInt())).thenReturn(
+                List.of()
+        );
+
+        mockMvc.perform(get("/users/adults").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(read("200_get_empty_list")));
     }
 }
