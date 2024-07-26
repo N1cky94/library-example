@@ -47,6 +47,10 @@ public class UserController {
         }
     }
     
-    record ErrorMessage(String error) { }
+    record ErrorMessage(String error) {
+        static ErrorMessage from(RuntimeException e) {
+            return new ErrorMessage(e.getMessage());
+        }
+    }
     
 }
