@@ -22,9 +22,17 @@ public class UserService {
                 .toList();
     }
     
-    public record UserDto(String name, int age, String email, String password) {
+    public List<UserDto> getAllAdultUsers() {
+        return repository.findAllUsersOlderThan(18)
+                .stream()
+                .map(UserDto::from)
+                .toList();
+    }
+    
+    public record UserDto(Long id, String name, int age, String email, String password) {
         public static UserDto from(User user) {
             return new UserDto(
+                    user.getId(),
                     user.getName(),
                     user.getAge(),
                     user.getEmail(),
