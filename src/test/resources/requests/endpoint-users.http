@@ -1,3 +1,7 @@
 ### GET all users
 GET http://localhost:8080/users
 Accept: application/json
+
+### GET all adult users
+GET http://localhost:8080/users/adults
+Accept: application/json
