@@ -29,6 +29,20 @@ public class UserService {
                 .toList();
     }
     
+    public List<UserDto> getAllAdultsWithAgeBetween(int min, int max) {
+        if (min > max) {
+            throw new ServicesException("Minimum age cannot be greater than maximum age.");
+        }
+        if (min < 0 || max > 150) {
+            throw new ServicesException("Invalid age range. Age must be between 0 and 150.");
+        }
+        
+        return repository.findAllUsersWithAgeBetween(min, max)
+                .stream()
+                .map(UserDto::from)
+                .toList();
+    }
+    
     public record UserDto(Long id, String name, int age, String email, String password) {
         public static UserDto from(User user) {
             return new UserDto(

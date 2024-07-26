@@ -24,6 +24,13 @@ public class InMemoryUserRepository {
         return usersDataStore.stream().filter(u -> u.getAge() >= age).toList();
     }
     
+    public List<User> findAllUsersWithAgeBetween(int min, int max) {
+        return usersDataStore.stream()
+                .filter(u -> u.getAge() >= min)
+                .filter(u -> u.getAge() <= max)
+                .toList();
+    }
+    
     public void clear() {
         usersDataStore.clear();
     }
