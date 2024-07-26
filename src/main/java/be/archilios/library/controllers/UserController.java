@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,10 +23,19 @@ public class UserController {
         } catch (DomainException de) {
             return ResponseEntity.internalServerError()
                     .body(
-                            Collections.singletonMap(
-                                    "error",
-                                    de.getMessage()
-                            ));
+                            new ErrorMessage(de.getMessage()));
         }
     }
+    
+    @GetMapping("/adults")
+    public ResponseEntity<?> getAllAdults() {
+        try {
+            return ResponseEntity.ok(userService.getAllAdultUsers());
+        } catch (DomainException de) {
+            return ResponseEntity.internalServerError().body(new ErrorMessage(de.getMessage()));
+        }
+    }
+    
+    record ErrorMessage(String error) { }
+    
 }
