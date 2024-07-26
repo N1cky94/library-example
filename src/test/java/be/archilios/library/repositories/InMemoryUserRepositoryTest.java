@@ -48,4 +48,13 @@ public class InMemoryUserRepositoryTest {
         assertEquals("Nick Bauters", users.get(0).getName());
         assertEquals("Kelly de Lange", users.get(1).getName());
     }
+    
+    @Test
+    void findAllUsersWithAgeBetween_returnsAllUsersWithinAgeRangeInDataStore() {
+        InMemoryUserRepository repository = new InMemoryUserRepository();
+        List<User> users = repository.findAllUsersWithAgeBetween(1, 30);
+        assertEquals(2, users.size());
+        assertEquals("Fynn Bauters", users.get(0).getName());
+        assertEquals("Kelly de Lange", users.get(1).getName());
+    }
 }

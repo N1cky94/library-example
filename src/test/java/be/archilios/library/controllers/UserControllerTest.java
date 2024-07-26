@@ -5,6 +5,8 @@ import be.archilios.library.models.User;
 import be.archilios.library.repositories.InMemoryUserRepository;
 import be.archilios.library.services.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -82,8 +84,8 @@ public class UserControllerTest {
     void givenUserListContainingAdultsAndChildren_whenApiCallFoAdultsIsMade_thanReturnOnlyAdults() throws Exception {
         when(repository.findAllUsersOlderThan(anyInt())).thenReturn(
                 Arrays.asList(
-                        new User(1l, "Nick Bauters", "1234abCD9", "nick@archilios.be", 33),
-                        new User(3l, "Kelly de Lange", "8765zyXW0", "kelly@archilios.be", 26)
+                        new User(1L, "Nick Bauters", "1234abCD9", "nick@archilios.be", 33),
+                        new User(3L, "Kelly de Lange", "8765zyXW0", "kelly@archilios.be", 26)
                 )
         );
 
@@ -93,7 +95,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void givenUserListContainingAdultsAndChildrenIsEmpty_whenApiCallForAdultsIsMade_thanReturnOnlyAdults() throws Exception {
+    void givenUserListContainingAdultsAndChildrenIsEmpty_whenApiCallForAdultsIsMade_thanReturnEmptyList() throws Exception {
         when(repository.findAllUsersOlderThan(anyInt())).thenReturn(
                 List.of()
         );
@@ -101,5 +103,51 @@ public class UserControllerTest {
         mockMvc.perform(get("/users/adults").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(read("200_get_empty_list")));
+    }
+    
+    @Test
+    void givenUserList_whenApiCallForUsersBetweenTwoAgesIsMade_thanReturnCorrectSubsetOfUsers() throws Exception {
+        when(repository.findAllUsersWithAgeBetween(anyInt(), anyInt())).thenReturn(
+                Arrays.asList(
+                        new User(2L, "Fynn Bauters", "1234abCV9", "fynn@archilios.be", 2),
+                        new User(3L, "Kelly de Lange", "8765zyXW0", "kelly@archilios.be", 26)
+                )
+        );
+        
+        mockMvc.perform(get("/users/age/1/30").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(read("users/200_get_all_users_between_1_and_30")));
+    }
+    
+    @Test
+    void givenUserListIsEmpty_whenApiCallForAdultsIsMade_thanReturnEmptyList() throws Exception {
+        when(repository.findAllUsersWithAgeBetween(anyInt(), anyInt())).thenReturn(
+                List.of()
+        );
+        
+        mockMvc.perform(get("/users/age/35/80").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(read("200_get_empty_list")));
+    }
+    
+    @Test
+    void givenMaxAgeSmallerThanMinAge_whenApiCallForUsersIsMade_thanReturnErrorMessage() throws Exception {
+        mockMvc.perform(get("/users/age/35/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError())
+                .andExpect(content().json(read("users/400_min_larger_than_max")));
+    }
+    
+    @Test
+    void givenAgeIsOutOfBounds_whenApiCallForUsersIsMade_thanReturnErrorMessage() throws Exception {
+        int maxAgeBound = 151;
+        int minAgeBound = -1;
+        
+        mockMvc.perform(get("/users/age/0/" + maxAgeBound).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError())
+                .andExpect(content().json(read("users/400_age_out_of_bound")));
+        
+        mockMvc.perform(get("/users/age/" + minAgeBound + "/150").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError())
+                .andExpect(content().json(read("users/400_age_out_of_bound")));
     }
 }
