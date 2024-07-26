@@ -14,7 +14,7 @@ We are now introducing the web-API
 3. [Retrieve all adult users web-API](#story-7-retrieve-all-adults)
 4. [Retrieve all users within age range](#story-8-retrieve-all-users-within-age-range)
 5. [Retrieve all users with name containing](#story-9-filter-users-by-name)
-
+6. [Retrieve all publications by name or type](#story-10-filter-publications-by-title-and-type)
 
 ---
 
@@ -148,14 +148,49 @@ So that I can easily find specific users in the database
 |   Output error | None                                                                                       |
 
 #### Acceptance Criteria
-- [ ] If a name is provided as a query parameter, the system should return all users that contain the request parameter "name" characters in their name (partial matching). E.g. “Doe” should return “John Doe”, “Jane Doe” and “Sarah Doe”.
-- [ ] An error should be thrown if no users are found with the specified name.
-- [ ] The name request parameter is optional. If it is empty, all users are returned, just as before.
+- [x] If a name is provided as a query parameter, the system should return all users that contain the request parameter "name" characters in their name (partial matching). E.g. “Doe” should return “John Doe”, “Jane Doe” and “Sarah Doe”.
+- [x] An error should be thrown if no users are found with the specified name.
+- [x] The name request parameter is optional. If it is empty, all users are returned, just as before.
 #### Technical Requirements
-- [ ] Extend the existing endpoint `/users` in UserRestController. Do not create a new endpoint.
-- [ ] You can make RequestParam optional by using the `required` attribute.
-- [ ] Create a new method `usersByName()` in the UserRepository.
-- [ ] UserService should have a separate method to get users by name that throws an exception if the repository returns an empty list.
-- [ ] Test all (un)happy scenario’s in UserServiceTest.
-- [ ] No error handling is required in the controller yet.
+- [x] Extend the existing endpoint `/users` in UserRestController. Do not create a new endpoint.
+- [x] You can make RequestParam optional by using the `required` attribute.
+- [x] Create a new method `usersByName()` in the UserRepository.
+- [x] UserService should have a separate method to get users by name that throws an exception if the repository returns an empty list.
+- [x] Test all (un)happy scenario’s in UserServiceTest.
+- [x] No error handling is required in the controller yet.
+- [x] The endpoint is tested with **HTTP Client**.
+
+---
+
+### Story 10: Filter publications by title and type
+
+As a librarian,
+I want to filter publications by title and type,
+So that I can easily find specific publications in the library.
+
+#### API
+
+|         method | value                                                                                                                                                      |
+|---------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   Request Type | GET                                                                                                                                                        |
+|            URL | http://localhost:8080/publications                                                                                                                         |
+| Path Variables | None                                                                                                                                                       |
+|   Request Body | - title (String, optional): The potential title of a publication<br>- type (String, optional): Returns the type of publication (e.g. `Book` or `Magazine`) |
+| Output success | - A list of Publication objects (JSON)<br> - All fields of Book or Magazine are returned                                                                   |
+|   Output error | An empty list if no publications match the filter criteria                                                                                                 |
+
+#### Acceptance Criteria
+
+- [ ] The system should return a list of publications that match all provided criteria.
+  - [ ] Title is partially matched (not exactly).
+  - [ ] All details of a publication (Book or Magazine) are returned.
+- [ ] When no publications match the provided filter criteria, the system should return an empty list.
+- [ ] The system should allow filtering by any combination of provided criteria (title, type), including none, one, two. If no filter is present, all publications are returned.
+
+#### Technical Requirements
+- [ ] PublicationRestController should have 1 mapping for the path `/publications`.
+- [ ] PublicationService should have 1 method `findPublicationsByTitleAndType` .
+- [ ] PublicationRepository should be responsible for checking the type.
+- [ ] In PublicationRepository, add 2 public lists that represent the database for publications.
+- [ ] Ensure that the PublicationService is covered with unit tests verifying the functionality for various combinations of filter criteria.
 - [ ] The endpoint is tested with **HTTP Client**.
