@@ -18,4 +18,8 @@ public class InMemoryUserRepository {
     public List<User> findAllUsers() {
         return usersDataStore;
     }
+    
+    public void clear() {
+        usersDataStore.clear();
+    }
 }

@@ -17,15 +17,6 @@ public class User {
         setAge(age);
     }
     
-    public User(User user) {
-        this(
-                user.getName(),
-                user.getPassword(),
-                user.getEmail(),
-                user.getAge()
-        );
-    }
-    
     public String getName() {
         return name;
     }

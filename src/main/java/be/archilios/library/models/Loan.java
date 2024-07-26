@@ -69,9 +69,9 @@ public class Loan {
     }
     
     private void lendPublications() {
-        if (isProcessed()) {
-            return ;
-        }
+//        if (isProcessed()) {
+//            return ;
+//        }
         
         publications.forEach(Publication::hasAvailableCopies);
         publications.forEach(Publication::lendPublication);

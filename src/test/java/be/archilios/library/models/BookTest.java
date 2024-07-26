@@ -104,4 +104,41 @@ public class BookTest {
         
         assertEquals(1, book.getAvailableCopies(), "Available copies should increment to one");
     }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"9780132350884", "978-0-132-35088-4"})
+    void equals_returnsTrueForEqualBooks(String isbn) {
+        Book book1 = new Book("Clean Code", "Robert C. Martin", isbn, 2009);
+        Book book2 = new Book("Clean Code", "Robert C. Martin", isbn, 2009);
+        assertEquals(book1, book2);
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"9780132350884", "978-0-132-35088-4"})
+    void equals_returnsFalseForDifferentBooks(String isbn) {
+        Book book1 = new Book("Clean Code", "Robert C. Martin", isbn, 2009);
+        Book book2 = new Book("Clean Code", "Another Author", isbn, 2009);
+        assertNotEquals(book1, book2);
+    }
+    
+    @Test
+    void hashCode_returnsSameHashCodeForEqualBooks() {
+        Book book1 = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009);
+        Book book2 = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009);
+        assertEquals(book1.hashCode(), book2.hashCode());
+    }
+    
+    @Test
+    void hashCode_returnsDifferentHashCodeForDifferentBooks() {
+        Book book1 = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009);
+        Book book2 = new Book("Clean Code", "Another Author", "9780132350884", 2009);
+        assertNotEquals(book1.hashCode(), book2.hashCode());
+    }
+    
+    @Test
+    void toString_returnsCorrectStringRepresentation() {
+        Book book = new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009);
+        String expected = "Book{author='Robert C. Martin', isbn='9780132350884', publication='Publication{title='Clean Code', publicationYear=2009, availableCopies=5}'}";
+        assertEquals(expected, book.toString());
+    }
 }

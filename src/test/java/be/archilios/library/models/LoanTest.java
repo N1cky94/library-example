@@ -161,4 +161,51 @@ public class LoanTest {
         assertEquals(0, publications.get(1).getAvailableCopies(), "Magazine available copies should be left unchanged");
     }
     
+    @Test
+    void equals_returnsTrueForEqualLoans() {
+        User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        List<Publication> publications = List.of(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        Loan loan1 = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        Loan loan2 = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        assertEquals(loan1, loan2);
+    }
+    
+    @Test
+    void equals_returnsFalseForDifferentLoans() {
+        User user1 = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        User user2 = new User("Kelly de Lange", "8765zyXW", "kelly@archilios.be", 26);
+        List<Publication> publications = List.of(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        Loan loan1 = new Loan(user1, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        Loan loan2 = new Loan(user2, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        assertNotEquals(loan1, loan2);
+    }
+    
+    @Test
+    void hashCode_returnsSameHashCodeForEqualLoans() {
+        User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        List<Publication> publications = List.of(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        Loan loan1 = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        Loan loan2 = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        assertEquals(loan1.hashCode(), loan2.hashCode());
+    }
+    
+    @Test
+    void hashCode_returnsDifferentHashCodeForDifferentLoans() {
+        User user1 = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        User user2 = new User("Kelly de Lange", "8765zyXW", "kelly@archilios.be", 26);
+        List<Publication> publications = List.of(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        Loan loan1 = new Loan(user1, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        Loan loan2 = new Loan(user2, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        assertNotEquals(loan1.hashCode(), loan2.hashCode());
+    }
+    
+    @Test
+    void toString_returnsCorrectStringRepresentation() {
+        User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        List<Publication> publications = List.of(new Book("Clean Code", "Robert C. Martin", "9780132350884", 2009));
+        Loan loan = new Loan(user, publications, LocalDate.now(), LocalDate.now().plusDays(15));
+        String expected = "Loan{user=User{name='Nick Bauters', password='1234abCD', email='nick@archilios.be', age=33}, publications=[Book{author='Robert C. Martin', isbn='9780132350884', publication='Publication{title='Clean Code', publicationYear=2009, availableCopies=4}'}], startDate=2024-07-26, endDate=2024-08-10, processed=true}";
+        assertEquals(expected, loan.toString());
+    }
+    
 }

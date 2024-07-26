@@ -60,4 +60,41 @@ public class UserTest {
                 () -> new User(" ", " ", " ", 33)
         );
     }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"Nick Bauters", "Kelly de Lange"})
+    void equals_returnsTrueForEqualUsers(String name) {
+        User user1 = new User(name, "1234abCD", "nick@archilios.be", 33);
+        User user2 = new User(name, "1234abCD", "nick@archilios.be", 33);
+        assertEquals(user1, user2);
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"Nick Bauters", "Kelly de Lange"})
+    void equals_returnsFalseForDifferentUsers(String name) {
+        User user1 = new User(name, "1234abCD", "nick@archilios.be", 33);
+        User user2 = new User(name, "1234abCD", "kelly@archilios.be", 33);
+        assertNotEquals(user1, user2);
+    }
+    
+    @Test
+    void hashCode_returnsSameHashCodeForEqualUsers() {
+        User user1 = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        User user2 = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        assertEquals(user1.hashCode(), user2.hashCode());
+    }
+    
+    @Test
+    void hashCode_returnsDifferentHashCodeForDifferentUsers() {
+        User user1 = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        User user2 = new User("Kelly de Lange", "1234abCD", "nick@archilios.be", 33);
+        assertNotEquals(user1.hashCode(), user2.hashCode());
+    }
+    
+    @Test
+    void toString_returnsCorrectStringRepresentation() {
+        User user = new User("Nick Bauters", "1234abCD", "nick@archilios.be", 33);
+        String expected = "User{name='Nick Bauters', password='1234abCD', email='nick@archilios.be', age=33}";
+        assertEquals(expected, user.toString());
+    }
 }

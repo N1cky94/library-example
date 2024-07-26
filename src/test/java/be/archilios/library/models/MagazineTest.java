@@ -101,4 +101,41 @@ public class MagazineTest {
         
         assertEquals(1, magazine.getAvailableCopies(), "Available copies should increment to one");
     }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"12345678", "87654321"})
+    void equals_returnsTrueForEqualMagazines(String issn) {
+        Magazine magazine1 = new Magazine("How to start using Spring Boot", "Baeldung", issn, 2012);
+        Magazine magazine2 = new Magazine("How to start using Spring Boot", "Baeldung", issn, 2012);
+        assertEquals(magazine1, magazine2);
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {"12345678", "87654321"})
+    void equals_returnsFalseForDifferentMagazines(String issn) {
+        Magazine magazine1 = new Magazine("How to start using Spring Boot", "Baeldung", issn, 2012);
+        Magazine magazine2 = new Magazine("How to start using Spring Boot", "Another Editor", issn, 2012);
+        assertNotEquals(magazine1, magazine2);
+    }
+    
+    @Test
+    void hashCode_returnsSameHashCodeForEqualMagazines() {
+        Magazine magazine1 = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012);
+        Magazine magazine2 = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012);
+        assertEquals(magazine1.hashCode(), magazine2.hashCode());
+    }
+    
+    @Test
+    void hashCode_returnsDifferentHashCodeForDifferentMagazines() {
+        Magazine magazine1 = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012);
+        Magazine magazine2 = new Magazine("How to start using Spring Boot", "Another Editor", "12345678", 2012);
+        assertNotEquals(magazine1.hashCode(), magazine2.hashCode());
+    }
+    
+    @Test
+    void toString_returnsCorrectStringRepresentation() {
+        Magazine magazine = new Magazine("How to start using Spring Boot", "Baeldung", "12345678", 2012);
+        String expected = "Magazine{editor='Baeldung', issn='12345678', publication='Publication{title='How to start using Spring Boot', publicationYear=2012, availableCopies=12}'}";
+        assertEquals(expected, magazine.toString());
+    }
 }
