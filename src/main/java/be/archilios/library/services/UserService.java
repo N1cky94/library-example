@@ -43,6 +43,17 @@ public class UserService {
                 .toList();
     }
     
+    public List<UserDto> getAllUsersContainingName(String name) {
+        List<User> usersContainingName = repository.findAllUsersByName(name);
+        if (usersContainingName.isEmpty()) {
+            throw new ServicesException(String.format("User with name containing '%s' not found.", name));
+        }
+        
+        return usersContainingName.stream()
+                .map(UserDto::from)
+                .toList();
+    }
+    
     public record UserDto(Long id, String name, int age, String email, String password) {
         public static UserDto from(User user) {
             return new UserDto(

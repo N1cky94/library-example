@@ -4,10 +4,7 @@ import be.archilios.library.models.DomainException;
 import be.archilios.library.services.ServicesException;
 import be.archilios.library.services.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -19,14 +16,19 @@ public class UserController {
     }
     
     @GetMapping
-    public ResponseEntity<?> getAllUsers() {
+    public ResponseEntity<?> getAllUsers(@RequestParam(required = false) String name) {
         try {
-            return ResponseEntity.ok(userService.getAllUsers());
+            if (name == null || name.trim().isEmpty()) {
+                return ResponseEntity.ok(userService.getAllUsers());
+            } else {
+                return ResponseEntity.ok(userService.getAllUsersContainingName(name));
+            }
         } catch (DomainException de) {
-            return ResponseEntity.internalServerError()
-                    .body(
-                            new ErrorMessage(de.getMessage()));
+            return ResponseEntity.internalServerError().body(ErrorMessage.from(de));
+        } catch (ServicesException se) {
+            return ResponseEntity.badRequest().body(ServiceError.from(404, se));
         }
+        
     }
     
     @GetMapping("/adults")
@@ -34,7 +36,7 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.getAllAdultUsers());
         } catch (DomainException de) {
-            return ResponseEntity.internalServerError().body(new ErrorMessage(de.getMessage()));
+            return ResponseEntity.internalServerError().body(ErrorMessage.from(de));
         }
     }
     
@@ -43,7 +45,7 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.getAllAdultsWithAgeBetween(min, max));
         } catch (ServicesException se) {
-            return ResponseEntity.badRequest().body(new ServiceError(400, se.getMessage()));
+            return ResponseEntity.badRequest().body(ServiceError.from(400, se));
         }
     }
     
