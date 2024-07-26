@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Nick Bauters",
+    "password": "1234abCD9",
+    "email": "nick@archilios.be",
+    "age": 33
+  },
+  {
+    "id": 2,
+    "name": "Fynn Bauters",
+    "password": "1234abCV9",
+    "email": "fynn@archilios.be",
+    "age": 2
+  }
+]

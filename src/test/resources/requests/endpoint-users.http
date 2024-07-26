@@ -9,3 +9,7 @@ Accept: application/json
 ### GET all users within age range
 GET http://localhost:8080/users/age/1/30
 Accept: application/json
+
+### GET all users containing in name
+GET http://localhost:8080/users?name="Bauters"
+Accept: application/json

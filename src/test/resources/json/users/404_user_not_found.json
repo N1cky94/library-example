@@ -1,0 +1,4 @@
+{
+  "status": 404,
+  "error": "User with name containing 'Nope' not found."
+}
