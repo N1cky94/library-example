@@ -5,3 +5,7 @@ Accept: application/json
 ### GET all adult users
 GET http://localhost:8080/users/adults
 Accept: application/json
+
+### GET all users within age range
+GET http://localhost:8080/users/age/1/30
+Accept: application/json
