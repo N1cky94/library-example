@@ -6,7 +6,10 @@
 > 
 > The author of the code doesn't claim this code is perfect, nor is it the only solution.
 > Just A interpretation of the documented requirements.
-> 
+>
+
+![App Version v0.1.6](https://img.shields.io/badge/Version-V0.1.6-yellow?style=plastic)
+![App Status](https://img.shields.io/badge/Status-PREVIEW-orange?style=plastic)
 
 ## Content
 

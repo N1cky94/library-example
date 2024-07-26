@@ -15,6 +15,16 @@ We are now introducing the web-API
 4. [Retrieve all users within age range](#story-8-retrieve-all-users-within-age-range)
 5. [Retrieve all users with name containing](#story-9-filter-users-by-name)
 6. [Retrieve all publications by name or type](#story-10-filter-publications-by-title-and-type)
+7. [Retrieve all publications with available copies](#story-11-retrieve-all-publications-with-available-copies)
+8. [Unit testing](#feature-unit-test-clean-up-and-refactoring)
+9. [Retrieve all Loans from a User]()
+10. [Register a User]()
+11. [Update a User]()
+12. [Deleting a Loan]()
+13. [Deleting a User]()
+14. [Creating Integration Tests]()
+15. [Handling Exceptions]()
+16. [Using Hibernate Validation Library]()
 
 ---
 
@@ -181,16 +191,58 @@ So that I can easily find specific publications in the library.
 
 #### Acceptance Criteria
 
-- [ ] The system should return a list of publications that match all provided criteria.
-  - [ ] Title is partially matched (not exactly).
-  - [ ] All details of a publication (Book or Magazine) are returned.
-- [ ] When no publications match the provided filter criteria, the system should return an empty list.
-- [ ] The system should allow filtering by any combination of provided criteria (title, type), including none, one, two. If no filter is present, all publications are returned.
+- [x] The system should return a list of publications that match all provided criteria.
+  - [x] Title is partially matched (not exactly).
+  - [x] All details of a publication (Book or Magazine) are returned.
+- [x] When no publications match the provided filter criteria, the system should return an empty list.
+- [x] The system should allow filtering by any combination of provided criteria (title, type), including none, one, two. If no filter is present, all publications are returned.
 
 #### Technical Requirements
-- [ ] PublicationRestController should have 1 mapping for the path `/publications`.
-- [ ] PublicationService should have 1 method `findPublicationsByTitleAndType` .
-- [ ] PublicationRepository should be responsible for checking the type.
-- [ ] In PublicationRepository, add 2 public lists that represent the database for publications.
+- [x] PublicationRestController should have 1 mapping for the path `/publications`.
+- [x] PublicationService should have 1 method `findPublicationsByTitleAndType` .
+- [x] PublicationRepository should be responsible for checking the type.
+- [x] In PublicationRepository, add 1 list of type `Publication` that represent the database for publications.
 - [ ] Ensure that the PublicationService is covered with unit tests verifying the functionality for various combinations of filter criteria.
-- [ ] The endpoint is tested with **HTTP Client**.
+- [x] The endpoint is tested with **HTTP Client**.
+
+---
+
+### Story 11: Retrieve all publications with available copies
+
+As a librarian,
+I want to retrieve all publications that have a specified number of available copies,
+So that I can quickly find publications that meet the stock criteria for lending or reference.
+
+#### API
+
+|         method | value                                                                                           |
+|---------------:|:------------------------------------------------------------------------------------------------|
+|   Request Type | GET                                                                                             |
+|            URL | http://localhost:8080/publications/stock/{availableCopies}                                      |
+| Path Variables | - AvailableCopies (integer)                                                                     |
+|   Request Body | None                                                                                            |
+| Output success | - A list of Publication objects (JSON)<br> - Publication info: id, title, type, availableCopies |
+|   Output error | An empty list if no publications match the filter criteria                                      |
+
+#### Acceptance Criteria
+
+- [ ] The system should return a list of publications that have equal or more than the specified number of available copies.
+- [ ] All the details of each publication (book or magazine) are returned.
+- [ ] When no publications match the available copies criterion, the system should return an empty list.
+
+---
+
+### Feature: Unit test clean-up and refactoring
+
+As a developer 
+I want to write unit tests and refactor all business logic 
+So we keep the code clean and maintainable
+
+#### Acceptance Criteria
+
+- [ ] All business logic is tested (happy and unhappy)
+- [ ] All self-written repository logic is tested (happy and unhappy)
+- [ ] All unneeded tests from the domain is removed
+- [ ] Refactoring of the business logic for readability and testability
+- [ ] Introduction of Interfaces for repositories and services
+- [ ] Protection of domain data by closing encapsulation 
