@@ -1,0 +1,56 @@
+[
+  {
+    "type": "book",
+    "id": null,
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "code": "1234567891234",
+    "publicationYear": 2009,
+    "availableCopies": 5
+  },
+  {
+    "type": "book",
+    "id": null,
+    "title": "Clean Coder",
+    "author": "Robert C. Martin",
+    "code": "1234567891235",
+    "publicationYear": 2012,
+    "availableCopies": 5
+  },
+  {
+    "type": "book",
+    "id": null,
+    "title": "Clean Architecture",
+    "author": "Robert C. Martin",
+    "code": "1234567891236",
+    "publicationYear": 2022,
+    "availableCopies": 5
+  },
+  {
+    "type": "magazine",
+    "id": null,
+    "title": "Cleaning up my code",
+    "author": "Baeldung",
+    "code": "12345678",
+    "publicationYear": 2016,
+    "availableCopies": 12
+  },
+  {
+    "type": "magazine",
+    "id": null,
+    "title": "Union Architecture",
+    "author": "Baeldung",
+    "code": "12345679",
+    "publicationYear": 2023,
+    "availableCopies": 12
+  },
+  {
+    "type": "book",
+    "id": null,
+    "title": "Pragmatic Programmer",
+    "author": "Hunt & Thomas",
+    "code": "1234567891244",
+    "publicationYear": 2002,
+    "availableCopies": 5
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "type": "magazine",
+    "id": null,
+    "title": "Cleaning up my code",
+    "author": "Baeldung",
+    "code": "12345678",
+    "publicationYear": 2016,
+    "availableCopies": 12
+  }
+]

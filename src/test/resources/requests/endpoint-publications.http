@@ -1,0 +1,19 @@
+### GET All publications
+GET http://localhost:8080/publications
+Accept: application/json
+
+### GET Publications by title
+GET http://localhost:8080/publications?title=clean
+Accept: application/json
+
+### GET Publications by type
+GET http://localhost:8080/publications?type=magazine
+Accept: application/json
+
+### GET Publications by title and type
+GET http://localhost:8080/publications?title=clean&type=book
+Accept: application/json
+
+### GET Publications by non existing type and title
+GET http://localhost:8080/publications?title=empty&type=book
+Accept: application/json
