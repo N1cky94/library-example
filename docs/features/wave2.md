@@ -59,11 +59,6 @@ So that I can see all users currently in the system.
 - [x] Test all the (un)happy paths in the service. No error handling is required in the controller yet.
 - [x] The endpoint is tested with Thunderclient.
 
-[//]: # (todo: )
-[//]: # (   - [ ] Create better code coverage by clearning what we aren't using)
-[//]: # (   - [ ] Write tests for what we can't clean (Equals, Hashcode, ...)
-[//]: # (   - [ ] Write tests for the service and repository code)
-
 ---
 
 ### Story 7: Retrieve all adults
