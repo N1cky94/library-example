@@ -5,16 +5,30 @@ import java.util.Objects;
 import static be.archilios.library.utils.Validation.*;
 
 public class User {
+    private final Long id;
     private String name;
     private String password;
     private String email;
     private int age;
     
-    public User(String name, String password, String email, int age) {
+    public User(Long id, String name, String password, String email, int age) {
+        this.id = id;
         setName(name);
         setPassword(password);
         setEmail(email);
         setAge(age);
+    }
+    
+    public User(String name, String password, String email, int age) {
+        this.id = null;
+        setName(name);
+        setPassword(password);
+        setEmail(email);
+        setAge(age);
+    }
+    
+    public Long getId() {
+        return id;
     }
     
     public String getName() {
