@@ -57,7 +57,7 @@ So that I can see all users currently in the system.
 #### Technical Requirements:
 - [x] Add a new endpoint in UserRestController to handle the GET request.
 - [x] Test all the (un)happy paths in the service. No error handling is required in the controller yet.
-- [x] The endpoint is tested with Thunderclient.
+- [x] The endpoint is tested with **HTTP Client**.
 
 ---
 
@@ -80,16 +80,48 @@ So that I can see all adults currently in the system.
 
 #### Acceptance Criteria
 
-- [ ] The endpoint returns a list of all users with age >= 18.
-- [ ] Each user's information includes id, name, age, email, password.
-- [ ] If no users are registered, the API returns an empty list.
+- [x] The endpoint returns a list of all users with age >= 18.
+- [x] Each user's information includes id, name, age, email, password.
+- [x] If no users are registered, the API returns an empty list.
 
 #### Technical Requirements:
 
-- [ ] Add a new endpoint in UserRestController to handle the GET request.
-- [ ] The logic to get all adult users should mimic a database query with a “where age >= 18” clause, so this needs to be implemented in the repository (not in the service).
-  - [ ] Create a method usersOlderThan(int age) in the UserRepository that contains the logic to filter the list on the given criteria (not in the service).
-- [ ] Create a method in UserService to fulfill the business scenario of getting all adult users: getAllAdultUsers.
-- [ ] Users should have an implementation of an ID within the repository layer
+- [x] Add a new endpoint in UserRestController to handle the GET request.
+- [x] The logic to get all adult users should mimic a database query with a “where age >= 18” clause, so this needs to be implemented in the repository (not in the service).
+  - [x] Create a method usersOlderThan(int age) in the UserRepository that contains the logic to filter the list on the given criteria (not in the service).
+- [x] Create a method in UserService to fulfill the business scenario of getting all adult users: getAllAdultUsers.
+- [x] Users should have an implementation of an ID within the repository layer
+- [x] Test all the (un)happy paths in the service. No error handling is required in the controller yet.
+- [x] The endpoint is tested with **HTTP Client**.
+
+---
+
+### Story 8: Retrieve all users within age range
+
+#### API
+
+|         method | value                                                                                                                                         |
+|---------------:|:----------------------------------------------------------------------------------------------------------------------------------------------|
+|   Request Type | GET                                                                                                                                           |
+|            URL | http://localhost:8080/users/age/{min}/{max}                                                                                                   |
+| Path Variables | - min (int): The minimum age boundary for the search<br>- max (int): The maximum age boundary for the search                                  |
+|   Request Body | None                                                                                                                                          |
+| Output success | - A list of User objects (JSON)<br> - fields for each user: id, name, age, email, password <br> - The list may be empty if no users are found |
+|   Output error | None                                                                                                                                          |
+
+#### Acceptance Criteria
+
+- [ ] Users returned must have an age greater than or equal to min and less than or equal to max.
+- [ ] The system must validate that `min` is less than or equal to `max`.
+  - [ ] Error: "Minimum age cannot be greater than maximum age."
+- [ ] The system should also validate that the provided age range is between 0 and 150 years old.
+  - [ ] Error: "Invalid age range. Age must be between 0 and 150."
+- [ ] If no users fall within the specified age range, the system should return an empty JSON array.
+
+#### Technical Requirements
+- [ ] Implement a method in the “UserService” that leverages the “UserRepository” to find users by age.
+- [ ] Validation logic for the age range should be encapsulated within the service method, throwing ServiceExceptions as necessary for invalid inputs.
+- [ ] Add endpoint `/users/search/age/{min}/{max}` in “UserController”
+- [ ] Create a ServiceException class that extends RuntimeException in the service package.
 - [ ] Test all the (un)happy paths in the service. No error handling is required in the controller yet.
-- [ ] The endpoint is tested with Thunderclient.
+- [ ] The endpoint is tested with **HTTP Client**.
